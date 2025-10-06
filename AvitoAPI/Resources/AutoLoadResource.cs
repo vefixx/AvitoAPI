@@ -9,7 +9,7 @@ public class AutoLoadResource: ResourceBase
         
     }
 
-    public async Task<List<AvitoIdItem>> GetAdIdsAsync(ulong[] adIds)
+    public async Task<List<AvitoAutoLoadItem>> GetAutoLoadItemsAsync(ulong[] adIds)
     {
         Dictionary<string, string?> query = new Dictionary<string, string?>();
         query.Add("query", string.Join(",", adIds));

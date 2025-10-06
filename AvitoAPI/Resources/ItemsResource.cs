@@ -11,7 +11,7 @@ public class ItemsResource : ResourceBase
         
     }
 
-    public async Task<List<AvitoItem>> GetItemsAsync(int category, DateTime? updatedAtFrom = null, AvitoItemStatus[]? statuses = null, int page = 1, int perPage = 99)
+    public async Task<List<AvitoItem>> GetItemsAsync(int? category = null, DateTime? updatedAtFrom = null, AvitoItemStatus[]? statuses = null, int page = 1, int perPage = 99)
     {
         if (statuses == null)
         {
@@ -24,7 +24,8 @@ public class ItemsResource : ResourceBase
         query.Add("status", string.Join(",", statuses).ToLower());
         if (updatedAtFrom != null)
             query.Add("updatedAtFrom", ((DateTime)updatedAtFrom).ToString("yyyy-MM-dd"));
-        query.Add("category", category.ToString());
+        if (category != null)
+            query.Add("category", category.ToString());
         
         var response = await _client.GetAsync<GetItemsResponse>("core/v1/items", queryParams: query);
         return response.Resources;
