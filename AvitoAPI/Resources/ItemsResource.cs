@@ -50,10 +50,7 @@ public class ItemsResource : ResourceBase
     /// <returns></returns>
     public async Task<bool> UpdatePriceAsync(ulong itemId, int price)
     {
-        Dictionary<string, string?> query = new Dictionary<string, string?>();
-        query.Add("price", price.ToString());
-        
-        var response = await _client.GetAsync<UpdatePriceResponse>($"core/v1/items/{itemId}/update_price", queryParams: query);
+        var response = await _client.PostAsync<UpdatePriceResponse>($"core/v1/items/{itemId}/update_price", data: new {price = price});
         return response.Result.Success;
     }
 }
